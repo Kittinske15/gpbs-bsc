@@ -7,7 +7,8 @@
 // shape).
 // ---------------------------------------------------------------------------
 
-export const companies = ["Console", "TVS Linear", "TVS Now", "TrueID"];
+// Fictional demo company (not affiliated with any real business group).
+export const companies = ["Aurora Group", "Aurora TV", "Aurora Stream", "Aurora App"];
 export const years = [2024, 2025, 2026];
 
 export const meta = {
@@ -138,7 +139,7 @@ export const financials = {
 export const customer = {
   sections: [
     {
-      group: "TVS Linear",
+      group: "Aurora TV",
       subscribers: {
         key: "lin-subs",
         title: "Total Subscribers",
@@ -191,7 +192,7 @@ export const customer = {
       },
     },
     {
-      group: "TVS Now",
+      group: "Aurora Stream",
       subscribers: {
         key: "now-subs",
         title: "Total Subscribers",
@@ -223,7 +224,7 @@ export const customer = {
       donut: {
         key: "now-pkg",
         title: "Subscribers by Package",
-        labels: ["Now (TrueID)", "TVS Now"],
+        labels: ["Aurora App", "Aurora Stream"],
         values: [11.19, 88.81],
         colors: ["#c026d3", "#22b8d6"],
         center: "748K",
@@ -347,8 +348,8 @@ export const kpiSummary = [
   { perspective: "Financials", name: "Total Expenses", actual: "2,146 MB", target: "7,613 MB", status: "green", delta: -71.8, trend: financials.statCards[1].trend },
   { perspective: "Financials", name: "EBITDA", actual: "16 MB", target: "467 MB", status: "red", delta: -96.5, trend: financials.profit.ebitda.trend },
   { perspective: "Financials", name: "Net Profit", actual: "-333 MB", target: "-860 MB", status: "red", delta: 61, trend: financials.profit.netProfit.trend },
-  { perspective: "Customer", name: "Total Subscribers (Linear)", actual: "997.25K", target: "1.00M", status: "green", delta: 97604.83, trend: customer.sections[0].subscribers.trend },
-  { perspective: "Customer", name: "Total Subscribers (Now)", actual: "748K", target: "748K", status: "yellow", delta: 0, trend: customer.sections[1].subscribers.trend },
+  { perspective: "Customer", name: "Total Subscribers (Aurora TV)", actual: "997.25K", target: "1.00M", status: "green", delta: 97604.83, trend: customer.sections[0].subscribers.trend },
+  { perspective: "Customer", name: "Total Subscribers (Aurora Stream)", actual: "748K", target: "748K", status: "yellow", delta: 0, trend: customer.sections[1].subscribers.trend },
   { perspective: "Internal", name: "System On-Time", actual: "92%", target: "95%", status: "green", delta: 4.0, trend: internal.gauges[0].trend },
   { perspective: "Internal", name: "Program Rating", actual: "7.4", target: "8.0", status: "yellow", delta: 4.2, trend: internal.gauges[1].trend },
   { perspective: "Internal", name: "Channel Rating", actual: "8.1", target: "8.0", status: "green", delta: 6.6, trend: internal.gauges[2].trend },
@@ -357,6 +358,136 @@ export const kpiSummary = [
   { perspective: "People", name: "Revenue Per Head", actual: "1.86 MB", target: "1.72 MB", status: "green", delta: 8.1, trend: people.cards[1].trend },
   { perspective: "People", name: "Staff Engagement", actual: "79%", target: "80%", status: "green", delta: 4.0, trend: people.cards[3].trend },
   { perspective: "People", name: "Regretted Turnover", actual: "8.3%", target: "10%", status: "yellow", delta: -1.7, trend: people.cards[2].trend },
+];
+
+// =====================================================================
+// KPI SUMMARY — dashboard (cards + donuts), mirrors the report page
+// =====================================================================
+export const kpiSummaryDash = {
+  revenueBreakdown: {
+    key: "rev-breakdown",
+    title: "Revenue Breakdown",
+    labels: ["Subs&install", "Ads", "Spons", "Music&Ent", "Influ"],
+    values: [58.75, 22.28, 7.06, 6.91, 5.0],
+    colors: ["#c026d3", "#19b3a6", "#36c46b", "#7c5cff", "#e2433b"],
+    details: true,
+  },
+  totalSubscribers: {
+    key: "kpi-subs",
+    title: "Total Subscribers",
+    year: "2026",
+    status: "green",
+    value: "1.00",
+    delta: 97604.83,
+    up: true,
+    prevLabel: "Year 2025",
+    prevValue: "0.00M",
+    curLabel: "YTD 2026",
+    curValue: "1.00",
+    details: true,
+    trend: [0.2, 0.3, 0.4, 0.5, 0.6, 0.7, 0.8, 0.85, 0.9, 0.95, 0.98, 1.0],
+  },
+  tvsLinear: {
+    key: "kpi-linear",
+    title: "Aurora TV",
+    labels: ["Premium", "Mid", "Mass"],
+    values: [4.6, 4.52, 90.88],
+    colors: ["#19b3a6", "#f2c200", "#f0883e"],
+    center: "1.00M",
+    details: true,
+  },
+  ottPlatform: {
+    key: "kpi-ott",
+    title: "OTT Platform",
+    labels: ["Aurora App", "Aurora Stream"],
+    values: [11.19, 88.81],
+    colors: ["#c026d3", "#22b8d6"],
+    center: "748K",
+    details: true,
+  },
+  migration: {
+    key: "kpi-migration",
+    title: "Migration",
+    categories: ["Aurora TV", "Migrate"],
+    values: [1.0, 0.02],
+    colors: ["#19b3a6", "#f2c200"],
+  },
+};
+
+// =====================================================================
+// STRATEGY MAP LAYOUT — fixed-coordinate nodes + edges (for SVG arrows)
+// Canvas is 1740 x 930; each node box is 168 x 58 (top-left x,y).
+// =====================================================================
+export const SMAP_CANVAS = { w: 1740, h: 930, nodeW: 168, nodeH: 58 };
+
+export const smapBands = [
+  { label: "Financials", y: 100, h: 320, shade: "rgba(255,255,255,0.035)" },
+  { label: "Customer", y: 425, h: 235, shade: "rgba(255,255,255,0.0)" },
+  { label: "Internal", y: 665, h: 100, shade: "rgba(255,255,255,0.05)" },
+  { label: "People", y: 770, h: 160, shade: "rgba(255,255,255,0.0)" },
+];
+
+export const smapNodes = [
+  // Financials
+  { id: "netprofit", label: "Net Profit", status: "red", x: 900, y: 120 },
+  { id: "eps", label: "EPS", status: "none", x: 1180, y: 120 },
+  { id: "pe", label: "P/E", status: "none", x: 1380, y: 120 },
+  { id: "roe", label: "ROE", status: "none", x: 300, y: 215 },
+  { id: "de", label: "D/E Ratio", status: "none", x: 480, y: 215 },
+  { id: "roa", label: "ROA", status: "none", x: 660, y: 215 },
+  { id: "ebitda", label: "EBITDA", status: "red", x: 900, y: 215 },
+  { id: "dps", label: "DPS", status: "none", x: 1180, y: 215 },
+  { id: "cashflow", label: "Cash Flow", status: "none", x: 1380, y: 215 },
+  { id: "equity", label: "Total Equity", status: "none", x: 300, y: 320 },
+  { id: "liab", label: "Total Liabilities", status: "none", x: 480, y: 320 },
+  { id: "assets", label: "Total Assets", status: "none", x: 660, y: 320 },
+  { id: "revenue", label: "Total Revenue", status: "red", x: 840, y: 320 },
+  { id: "expense", label: "Total Expense", status: "red", x: 1020, y: 320 },
+  { id: "fincash", label: "Financial Cash", status: "none", x: 1200, y: 320 },
+  { id: "opcash", label: "Operating Cash", status: "none", x: 1380, y: 320 },
+  { id: "invcash", label: "Investing Cash", status: "none", x: 1545, y: 320 },
+  // Customer
+  { id: "loyalty", label: "Cust Loyalty", status: "none", x: 300, y: 445 },
+  { id: "churn", label: "Churn Rate", status: "none", x: 500, y: 445 },
+  { id: "subs", label: "Total Subscribers", status: "green", x: 690, y: 445 },
+  { id: "growthnow", label: "Sales Growth (Stream)", status: "none", x: 950, y: 445 },
+  { id: "growthlin", label: "Sales Growth (TV)", status: "none", x: 1240, y: 445 },
+  { id: "satisfaction", label: "Cust Satisfaction", status: "none", x: 290, y: 565 },
+  { id: "complaint", label: "Cust Complaint", status: "none", x: 490, y: 565 },
+  { id: "ott", label: "Streaming", status: "yellow", x: 680, y: 565 },
+  { id: "linear", label: "Broadcast", status: "green", x: 870, y: 565 },
+  { id: "onlinepiracy", label: "Online Piracy", status: "none", x: 1060, y: 565 },
+  { id: "cmdupiracy", label: "Content Piracy", status: "none", x: 1320, y: 565 },
+  // Internal
+  { id: "sysontime", label: "System On-Time", status: "none", x: 350, y: 685 },
+  { id: "prograting", label: "Program Rating", status: "none", x: 560, y: 685 },
+  { id: "chanrating", label: "Channel Rating", status: "none", x: 800, y: 685 },
+  { id: "partrating", label: "Partner Rating", status: "none", x: 1010, y: 685 },
+  // People
+  { id: "costhead", label: "Cost Per Head", status: "none", x: 340, y: 795 },
+  { id: "revhead", label: "Revenue Per Head", status: "none", x: 540, y: 795 },
+  { id: "regret", label: "Regretted Turn Over Rate", status: "none", x: 820, y: 795 },
+  { id: "staffeng", label: "Staff Engagement", status: "none", x: 1030, y: 795 },
+  { id: "roitraining", label: "ROI Training", status: "none", x: 540, y: 862 },
+  { id: "promotion", label: "Promotion Rate", status: "none", x: 1030, y: 862 },
+];
+
+export const smapEdges = [
+  ["equity", "roe"], ["liab", "de"], ["assets", "roa"],
+  ["revenue", "ebitda"], ["expense", "ebitda"], ["revenue", "netprofit"],
+  ["ebitda", "netprofit"], ["netprofit", "eps"], ["netprofit", "dps"],
+  ["eps", "pe"], ["fincash", "cashflow"], ["opcash", "cashflow"],
+  ["invcash", "cashflow"],
+  ["subs", "revenue"], ["growthnow", "revenue"], ["growthlin", "expense"],
+  ["loyalty", "churn"], ["satisfaction", "loyalty"], ["complaint", "churn"],
+  ["ott", "subs"], ["linear", "subs"],
+  ["onlinepiracy", "growthnow"], ["cmdupiracy", "growthlin"],
+  ["sysontime", "satisfaction"], ["prograting", "complaint"],
+  ["chanrating", "ott"], ["partrating", "linear"],
+  ["costhead", "sysontime"], ["revhead", "prograting"],
+  ["roitraining", "costhead"], ["roitraining", "revhead"],
+  ["regret", "chanrating"], ["staffeng", "partrating"],
+  ["promotion", "staffeng"], ["promotion", "regret"],
 ];
 
 // Tabs in display order

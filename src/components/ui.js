@@ -69,6 +69,41 @@ export function Donut({ labels, values, colors, center }) {
   return <Chart options={options} series={values} type="donut" height={210} />;
 }
 
+// ---- Bar / column chart ---------------------------------------------------
+export function Bar({ categories, data, colors }) {
+  const options = {
+    chart: { type: "bar", toolbar: { show: false }, background: "transparent" },
+    theme: { mode: "dark" },
+    colors: colors && colors.length ? colors : ["#19b3a6"],
+    plotOptions: {
+      bar: {
+        columnWidth: "45%",
+        borderRadius: 4,
+        distributed: true,
+      },
+    },
+    dataLabels: {
+      enabled: true,
+      formatter: (v) => `${v.toFixed(2)}M`,
+      style: { fontSize: "12px", colors: ["#eaf2ff"] },
+      offsetY: -18,
+    },
+    legend: { show: true, position: "top", labels: { colors: "#eaf2ff" } },
+    grid: { borderColor: "#1b3760", strokeDashArray: 4 },
+    xaxis: {
+      categories,
+      labels: { style: { colors: "#9fb4d6" } },
+      axisBorder: { color: "#1b3760" },
+      axisTicks: { color: "#1b3760" },
+    },
+    yaxis: { labels: { style: { colors: "#9fb4d6" } } },
+    tooltip: { theme: "dark", y: { formatter: (v) => `${v}M` } },
+  };
+  return (
+    <Chart options={options} series={[{ name: "Subscribers", data }]} type="bar" height={210} />
+  );
+}
+
 // ---- Sparkline / mini trend ----------------------------------------------
 export function Sparkline({ data, color = "#5aa0ff", height = 38 }) {
   const options = {

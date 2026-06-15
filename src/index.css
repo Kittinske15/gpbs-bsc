@@ -253,42 +253,64 @@ body {
 }
 
 /* ---------------- Strategy map ---------------- */
-.smap-row {
-  display: grid;
-  grid-template-columns: 120px 1fr;
-  align-items: center;
-  gap: 16px;
-  padding: 18px 0;
-  border-bottom: 1px solid rgba(27, 55, 96, 0.6);
+.smap-scroll {
+  overflow-x: auto;
+  padding: 10px;
 }
-.smap-row .persp {
+.smap-canvas {
+  position: relative;
+  margin: 0 auto;
+}
+.smap-band {
+  position: absolute;
+  left: 0;
+  right: 0;
+  border-radius: 8px;
+}
+.smap-band-label {
+  position: absolute;
+  left: 14px;
   font-size: 22px;
   font-weight: 700;
   color: var(--text);
+  z-index: 3;
 }
-.smap-nodes {
-  display: flex;
-  flex-wrap: wrap;
-  gap: 12px;
+.smap-svg {
+  position: absolute;
+  top: 0;
+  left: 0;
+  z-index: 1;
+  pointer-events: none;
 }
-.smap-node {
-  background: linear-gradient(180deg, #1b335e, #12254a);
-  border: 1px solid #2a4a7e;
-  border-radius: 10px;
-  padding: 12px 16px;
-  min-width: 120px;
+.smap-box {
+  position: absolute;
+  z-index: 2;
+  background: linear-gradient(180deg, #243a63, #16294a);
+  border: 1px solid #324f80;
+  border-radius: 11px;
+  padding: 8px 12px;
   display: flex;
   align-items: center;
-  gap: 9px;
+  justify-content: center;
+  text-align: center;
   cursor: pointer;
-  font-size: 13.5px;
+  font-size: 13px;
   font-weight: 600;
-  position: relative;
+  line-height: 1.15;
   transition: all 0.15s;
 }
-.smap-node:hover {
-  border-color: #3f6db0;
+.smap-box:hover {
+  border-color: #5a87c8;
   transform: translateY(-1px);
+}
+.smap-dot {
+  position: absolute;
+  top: -7px;
+  left: 12px;
+  width: 16px;
+  height: 16px;
+  border-radius: 50%;
+  border: 2px solid #0c2143;
 }
 
 /* ---------------- KPI summary table ---------------- */
