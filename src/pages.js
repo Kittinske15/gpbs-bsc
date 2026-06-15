@@ -50,7 +50,7 @@ function ProfitBlock({ onDetails }) {
   );
 }
 
-function CashFlowCard() {
+function CashFlowCard({ onDetails }) {
   const c = financials.cashFlow;
   return (
     <div className="card" style={{ textAlign: "center" }}>
@@ -58,10 +58,12 @@ function CashFlowCard() {
       <div className="bigval" style={{ fontSize: 34 }}>
         {c.value}<span className="unit">{c.unit}</span>
       </div>
-      <div className="card-sub">{c.curLabel}</div>
-      <div className="delta down" style={{ fontSize: 18 }}>-</div>
-      <div className="compare-label">( {c.prevLabel} vs YTD Actual )</div>
-      <Compare prevLabel={c.prevLabel} prevValue={c.prevValue} curLabel="Year 2025" curValue={c.prevValue} />
+      <Delta value={c.delta} up={c.up} />
+      <div className="compare-label">( {c.prevLabel} vs {c.curLabel} )</div>
+      <Compare prevLabel={c.prevLabel} prevValue={c.prevValue} curLabel={c.curLabel} curValue={c.curValue} />
+      {c.details && (
+        <button className="details-btn" onClick={() => onDetails(c)}>Details</button>
+      )}
     </div>
   );
 }
@@ -100,7 +102,7 @@ export function Financials({ onDetails }) {
         <StatCard item={f.statCards[0]} onDetails={onDetails} />
         <StatCard item={f.statCards[1]} onDetails={onDetails} />
         <ProfitBlock onDetails={onDetails} />
-        <CashFlowCard />
+        <CashFlowCard onDetails={onDetails} />
         <IntercoCard title="AP" onDetails={onDetails} />
       </div>
 
@@ -110,9 +112,9 @@ export function Financials({ onDetails }) {
             <div className="card-title" style={{ fontSize: 17 }}>{b.title} <Dot status={b.status} /></div>
             <div className="bigval" style={{ fontSize: 34 }}>{b.value}<span className="unit">{b.unit}</span></div>
             <div className="card-sub">Y 2026</div>
-            <div className="delta down" style={{ fontSize: 16 }}>-</div>
+            <Delta value={b.delta} up={b.up} />
             <div className="compare-label">(YTD Actual vs Year 2025)</div>
-            <div style={{ fontSize: 24, fontWeight: 700, marginTop: 6 }}>{b.value}<span className="unit">{b.unit}</span></div>
+            <div style={{ fontSize: 24, fontWeight: 700, marginTop: 6 }}>{b.prev}<span className="unit">{b.unit}</span></div>
             <div style={{ fontSize: 11, color: "var(--text-faint)" }}>Year 2025</div>
           </div>
         ))}
@@ -201,7 +203,7 @@ export function KpiSummary({ onDetails }) {
         <StatCard item={financials.statCards[0]} onDetails={onDetails} />
         <StatCard item={financials.statCards[1]} onDetails={onDetails} />
         <ProfitBlock onDetails={onDetails} />
-        <CashFlowCard />
+        <CashFlowCard onDetails={onDetails} />
         <IntercoCard title="Interco" onDetails={onDetails} />
       </div>
 
