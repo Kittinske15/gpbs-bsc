@@ -1,0 +1,13 @@
+{
+  "files": {
+    "main.css": "/gpbs-bsc/static/css/main.93d08b53.css",
+    "main.js": "/gpbs-bsc/static/js/main.3663152b.js",
+    "index.html": "/gpbs-bsc/index.html",
+    "main.93d08b53.css.map": "/gpbs-bsc/static/css/main.93d08b53.css.map",
+    "main.3663152b.js.map": "/gpbs-bsc/static/js/main.3663152b.js.map"
+  },
+  "entrypoints": [
+    "static/css/main.93d08b53.css",
+    "static/js/main.3663152b.js"
+  ]
+}
