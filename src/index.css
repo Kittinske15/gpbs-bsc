@@ -57,6 +57,9 @@ body {
   height: 34px;
   width: auto;
   display: block;
+  /* Logo PNG has black "GPBS" text; render it white so it reads on the
+     dark navy nav bar. */
+  filter: brightness(0) invert(1);
 }
 .topnav .tabs {
   display: flex;
